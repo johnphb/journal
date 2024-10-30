@@ -1,0 +1,132 @@
+/* Bordered form */
+:root {
+    /* Colors */
+    --colorSunny: rgb(255, 247, 135);
+    --colorRed: #f74949;
+    --colorBlack: black;
+
+    /* Assigned Colors */
+    --mainBackground: white;
+    --buttonColor: var(--colorRed);
+    --textColor: var(--colorBlack);
+}
+
+.main {
+    background-color: var(--mainBackground);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    min-width: 250px;
+    width: 25%;
+  }
+
+  h1 {
+    text-align: center;
+    color: #20005d;
+  }
+  
+  /* Full-width inputs */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: white;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: var(--buttonColor);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Add a hover effect for buttons */
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Add padding to containers */
+  .container {
+    padding: 16px;
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+    .cancelbtn {
+      width: 100%;
+    }
+  }
+  
+/* NAVBAR */
+
+/* background color TOPNAV */
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--mainBackground);
+    overflow: hidden;
+  }
+  
+  /* NavBar Items */
+  .topnav a {
+    float: left;
+    text-decoration: none;
+    color: var(--textColor);
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 17px;
+  }
+  
+  /* NavBar Items Hover */
+  .topnav a:hover {
+    background-color: var(--buttonColor);
+    color: black;
+  }
+
+  .entry_body{
+    display: flex;
+    justify-content: center;
+  }
+
+  .entry_div {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    width: 50%;
+    background-color: var(--colorSunny);
+    border-radius: 10%;
+  }
+  .entry_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    margin: 5px;
+  }
+  .entry_title {
+    background-color: white;
+    border-radius: 10%;
+  }
+  .entry_date {
+    color:#20005d;
+  }
