@@ -1,19 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-<body class="main entry_body">
+{% extends "base.html" %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block body %}
+
+<div class="main entry_body">
+    {% for item in list %}
+    {% set side = loop.index %}
     <div class="entry_div">
-        <div class="entry_container entry_title">
-            <h2>Entry Title</h2>
-        </div>
-        <div class="entry_container entry_date">
-            <p>DATE</p>
-        </div>
+        {% for i in range(2) %}
+            {% set side = side + loop.index %}
+            {% if side%2 == 0 %}
+            <div class="entry_container entry_title">
+                <h2>{{ item[1] }}</h2>
+                <div class="entry_description">
+                    <p class="entry_description">{{ item[2] }}</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="entry_container entry_date">
+                <p>{{ item[0] }}</p>
+            </div>
+            {% endif %}
+        {% endfor %}
     </div>
-</body>
-</html>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
