@@ -6,16 +6,19 @@
 <body>
     <div class="entry_page_head">
         <h3>
-            DATE
+            {{ entry.date.strftime('%d.%m.%Y') }}
         </h3>
-        <button class="edit_button">
-            EDIT
-        </button>
+        <!-- Link to Edit - Passing entry id -->
+        <a href="{{ url_for('simple_pages.edit_entry', entry_id=entry.id) }}">
+            <button class="edit_button">
+                EDIT
+            </button>
+        </a>
     </div>
     <div class="entry_page_body">
-        <h1>Title</h1>
+        <h1>{{ entry.title }}</h1>
         <p>
-            TEXT
+            {{ entry.content }}
         </p>
     </div>
 

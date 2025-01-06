@@ -5,25 +5,27 @@
 {% block body %}
 
 <div class="main entry_body">
+    <!-- Loop through all entries -->
     {% for entry in entries %}
+    <!-- alternately left and right aligned -->
     {% set side = loop.index %}
-    <div class="entry_div">
+    <a href="{{ url_for('simple_pages.entry', entry_id=entry.id) }}" class="entry_div">
         {% for i in range(2) %}
             {% set side = side + loop.index %}
-            {% if side%2 == 0 %}
+            {% if side%2 == 0 %} 
             <div class="entry_container entry_title">
                 <h2>{{ entry.title }}</h2>
                 <div class="entry_description">
-                    <p class="entry_description">{{ entry.content }}</p>
+                    <p class="entry_description">{{ entry.date.strftime('%d.%m.%Y') }}</p>
                 </div>
             </div>
             {% else %}
             <div class="entry_container entry_date">
-                <p>{{ entry.date }}</p>
+                <p>{{ entry.content }}</p>
             </div>
             {% endif %}
         {% endfor %}
-    </div>
+    </a>
     {% endfor %}
 </div>
 {% endblock %}
