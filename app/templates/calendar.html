@@ -5,6 +5,9 @@
 {% block body %}
 
 <div class="main entry_body">
+    <a href="{{ url_for('simple_pages.new_entry') }}">
+        <button>New Entry</button>
+    </a>
     <!-- Loop through all entries -->
     {% for entry in entries %}
     <!-- alternately left and right aligned -->

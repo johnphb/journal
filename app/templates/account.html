@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Account{% endblock %}
+
+{% block body %}
+
+<div class="account-container">
+    <h1>Account Details</h1>
+    <p><strong>Username:</strong> {{ user.uname }}</p>
+    <p><strong>Account Created:</strong> {{ user.created_at.strftime('%d.%m.%Y') }}</p>
+    <p><strong>Number of Entries:</strong> {{ entry_count }}</p>
+    <a href="{{ url_for('simple_pages.edit_account') }}">
+        <button>Edit Account</button>
+    </a>
+    <a href="{{ url_for('simple_pages.logout') }}">
+        <button>Logout</button>
+    </a>
+</div>
+
+{% endblock %}

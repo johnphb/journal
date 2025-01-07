@@ -1,12 +1,14 @@
+from flask_login import UserMixin
 from app.extensions.database import db
 from datetime import datetime, timezone
 
-class User(db.Model):
+class User(UserMixin, db.Model):
   __tablename__ = 'user'
 
   id = db.Column(db.Integer, primary_key=True)
   uname = db.Column(db.String(15), unique=True)
   pword = db.Column(db.String(20))
+  created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
 class Entries(db.Model):
   __tablename__ = 'entries'

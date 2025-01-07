@@ -14,7 +14,7 @@
     <!-- Navbar for every Page -->
     <div class="topnav">
         <a href="{{ url_for('simple_pages.calendar') }}">Calendar</a>
-        <a href="#account">Account</a>
+        <a href="{{ url_for('simple_pages.account') }}">Account</a>
     </div>
     {% block body %}{% endblock %}
     <!-- 
