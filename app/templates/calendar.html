@@ -4,9 +4,9 @@
 
 {% block body %}
 
-<div class="main entry_body">
+<div class="entry_body">
     <a href="{{ url_for('simple_pages.new_entry') }}">
-        <button>New Entry</button>
+        <button class="button_small">New Entry</button>
     </a>
     <!-- Loop through all entries -->
     {% for entry in entries %}
@@ -17,14 +17,14 @@
             {% set side = side + loop.index %}
             {% if side%2 == 0 %} 
             <div class="entry_container entry_title">
-                <h2>{{ entry.title }}</h2>
-                <div class="entry_description">
-                    <p class="entry_description">{{ entry.date.strftime('%d.%m.%Y') }}</p>
+                <h2 class="text_container">{{ entry.title }}</h2>
+                <div class="">
+                    <p class="">{{ entry.date.strftime('%d.%m.%Y') }}</p>
                 </div>
             </div>
             {% else %}
-            <div class="entry_container entry_date">
-                <p>{{ entry.content }}</p>
+            <div class="entry_container">
+                <p class="text_container entry_description">{{ entry.content }}</p>
             </div>
             {% endif %}
         {% endfor %}

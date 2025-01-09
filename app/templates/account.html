@@ -4,8 +4,8 @@
 
 {% block body %}
 
-<div class="account-container">
-    <h1>Account Details</h1>
+<div class="container_background container">
+    <h3>Account Details</h3>
     <p><strong>Username:</strong> {{ user.uname }}</p>
     <p><strong>Account Created:</strong> {{ user.created_at.strftime('%d.%m.%Y') }}</p>
     <p><strong>Number of Entries:</strong> {{ entry_count }}</p>

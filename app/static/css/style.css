@@ -1,19 +1,66 @@
-/* Bordered form */
+/* VARIABLES */
 :root {
     /* Colors */
-    --colorSunny: rgb(255, 247, 135);
+    --colorSunny: #fff9db;
     --colorRed: #f74949;
-    --colorBlack: black;
+    --colorBlack: rgb(15, 0, 46);
+    --colorFrost: rgba(255, 255, 255, 0.6);
 
     /* Assigned Colors */
-    --mainBackground: white;
+    --mainBackground: var(--colorSunny);
     --buttonColor: var(--colorRed);
     --textColor: var(--colorBlack);
+    --containerColor: var(--colorFrost);
+
+    /* Style */
+    --blur: blur(10px);
+    --corner: 30px;
 }
 
 .main {
-    background-color: var(--mainBackground);
     font-family: Arial, Helvetica, sans-serif;
+}
+
+ body {
+  background-color: var(--mainBackground); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text y="20" font-size="20">🌼</text><text x="30" y="50" font-size="20">☀️</text><text x="60" y="80" font-size="20">🍋</text></svg>');
+  background-repeat: repeat;
+  background-size: 100px 100px; /* Size pattern repetition */
+  background-attachment: fixed; /* background */
+  margin: 0px;
+} 
+.content {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text_container {
+  /* width: 100%; 
+  overflow-wrap: break-word; 
+  word-wrap: break-word; 
+  white-space: normal;  */
+
+  width: 100%; /* Full width of the container */
+  /*max-width: 600px; /* Optional: set a maximum width */
+  /*padding: 10px; /* Add padding for spacing */
+  /*border: 1px solid #ccc; /* Border similar to a paragraph */
+  /*border-radius: 4px; /* Rounded corners */
+  /*background-color: #fff; /* Background color similar to a paragraph */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  overflow-wrap: break-word; /* Ensure long words break to fit */
+  word-wrap: break-word; /* For older browsers */
+  white-space: pre-wrap; /* Preserve whitespace and ensure normal text wrapping */
+  /*min-height: 150px; /* Set a minimum height */
+  resize: none; /* Prevent resizing if desired */
+  font-family: inherit; /* Ensure font matches the surrounding text */
+  /*font-size: inherit; /* Ensure font size matches the surrounding text */
+  line-height: inherit; /* Ensure line height matches the surrounding text */
+  background-color: #ffffff00;
+  border: none;
+  height: fit-content;
 }
 
 /* Links */
@@ -21,9 +68,51 @@ a {
   text-decoration: none; 
   color: inherit; 
 }
-/*a:hover {
-  color: rgb(39, 39, 39); 
-}*/
+
+/* Set a style for all buttons */
+button {
+  background-color: var(--buttonColor);
+  color: white;
+  padding: 14px 20px;
+  margin: 5px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.button_small {
+  width: fit-content;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+
+/* Texts */
+h1 {
+  text-align: center;
+  color: var(--textColor);
+  margin: 0px;
+  max-width: 50%;
+}
+h2 {
+  text-align: center;
+  color: var(--textColor);
+  margin: 0px;
+}
+h3 {
+  color: var(--textColor);
+  margin: 0px;
+}
+p {
+  color: var(--textColor);
+}
 
 .loginDiv {
     display: flex;
@@ -31,17 +120,22 @@ a {
     align-items: center;
     height: 100vh;
 }
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: var(--containerColor);
+  backdrop-filter: var(--blur); 
+  border-radius: var(--corner);
+  margin: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  align-items: center;
+  justify-content: center;
+}
 
-form {
+/* form {
     min-width: 250px;
     width: 25%;
-  }
-
-  h1 {
-    text-align: center;
-    color: #20005d;
-    margin: 0px;
-  }
+  } */
   
   /* Full-width inputs */
   input[type=text], input[type=password] {
@@ -52,27 +146,6 @@ form {
     border: 1px solid #ccc;
     box-sizing: border-box;
     background-color: white;
-  }
-  
-  /* Set a style for all buttons */
-  button {
-    background-color: var(--buttonColor);
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  /* Add a hover effect for buttons */
-  button:hover {
-    opacity: 0.8;
-  }
-  
-  /* Add padding to containers */
-  .container {
-    padding: 16px;
   }
   
   /* Change styles for span and cancel button on extra small screens */
@@ -94,6 +167,14 @@ form {
     justify-content: space-between;
     background-color: var(--mainBackground);
     overflow: hidden;
+    background-color: var(--containerColor); 
+    backdrop-filter: var(--blur); /* Apply blur effect */
+    border-radius: var(--corner);
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: calc(100% - 20px);
+    z-index: 1000;
   }
   
   /* NavBar Items */
@@ -109,24 +190,29 @@ form {
   /* NavBar Items Hover */
   .topnav a:hover {
     background-color: var(--buttonColor);
-    color: black;
+    color: white;
   }
+
+/* ENTRIES */
 
   .entry_body{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+  } 
 
   .entry_div {
     display: flex;
     justify-content: space-between;
     height: fit-content;
     width: fit-content;
-    background-color: var(--colorSunny);
-    border-radius: 30px;
+    background-color: var(--containerColor);
+    backdrop-filter: var(--blur);
+    border-radius: var(--corner);
     margin: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
   }
   .entry_container {
     display: flex;
@@ -140,27 +226,54 @@ form {
     padding: 25px;
   }
   .entry_description{
-    max-height: 100px;
+    max-height: 200px;
+    overflow: hidden;
+    margin: 0;
   }
   .entry_title {
-    background-color: white;
-    border-radius: 25px;
+    background-color: var(--containerColor);
+    border-radius: calc(var(--corner) - 5px);
   }
-  .entry_date {
+  /*.entry_date {
     color:#20005d;
-  }
+  }*/
 
 
   .entry_page_head {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .entry_page_body {
-    background-color: var(--colorSunny);
-    border-radius: 30px;
-    padding: 20px;
+    /* padding: 20px;
+    background-color: var(--containerColor);
+    backdrop-filter: var(--blur);
+    border-radius: var(--corner);
+    margin: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    width: 75%;
   }
   .edit_button{
-    background-color: #f74949;
-    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+  }
+  .flex1 {
+    flex:1
+  }
+  .align_right{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+
+  .container_background{
+    padding: 20px;
+    background-color: var(--containerColor);
+    backdrop-filter: var(--blur);
+    border-radius: var(--corner);
+    margin: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }

@@ -3,29 +3,32 @@
 {% block title %}Calendar{% endblock %}
 
 {% block body %}
+<div class="loginDiv">
+    <div class="loginContainer container">
 
-<form method="post">
-    <div class="form-group">
-        <label for="uname">Username</label>
-        <input type="text" id="uname" name="uname" required>
-    </div>
-    <div class="form-group">
-        <label for="pword">Password</label>
-        <input type="password" id="pword" name="pword" required>
-    </div>
-    <button type="submit">Register</button>
-</form>
-<a href="{{ url_for('simple_pages.login') }}">
-    <button>Login</button>
-</a>
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <ul class="flashes">
-            {% for category, message in messages %}
-                <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+        <form method="post">
+            <h1>Register</h1>
+            <div class="form-group">
+                <input type="text" placeholder="Username" id="uname" name="uname" required>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password" id="pword" name="pword" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <a href="{{ url_for('simple_pages.login') }}">
+            <p>Login</p>
+        </a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
 
+    </div>
+</div>
 {% endblock %}

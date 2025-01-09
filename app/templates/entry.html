@@ -4,21 +4,19 @@
 
 {% block body %}
 
-<body>
-    <div class="entry_page_head">
-        <h3>
-            {{ entry.date.strftime('%d.%m.%Y') }}
-        </h3>
-        <!-- Link to Edit - Passing entry id -->
-        <a href="{{ url_for('simple_pages.edit_entry', entry_id=entry.id) }}">
-            <button class="edit_button">
-                EDIT
-            </button>
-        </a>
-    </div>
-    <div class="entry_page_body">
-        <h1>{{ entry.title }}</h1>
-        <p>
+    <div class="entry_page_body container_background">
+        <div class="entry_page_head">
+            <h3 class="flex1">
+                {{ entry.date.strftime('%d.%m.%Y') }}
+            </h3>
+            <h1 class="text_container flex1">{{ entry.title }}</h1>
+            <!-- Link to Edit - Passing entry id -->
+            <div class="flex1 align_right">
+                <a class="edit_button" href="{{ url_for('simple_pages.edit_entry', entry_id=entry.id) }}">✏️</a>
+            </div>
+        </div>
+        
+        <p class="text_container">
             {{ entry.content }}
         </p>
     </div>

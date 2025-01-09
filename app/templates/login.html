@@ -2,10 +2,11 @@
 {% block title %}LogIn{% endblock %}
 
 {% block body %}
-    <div class="loginDiv">
+<div class="loginDiv">
+    <div class="loginContainer container_background container">
         <!-- Use Flask's url_for to generate the URL for the login route -->
         <form action="{{ url_for('simple_pages.login') }}" method="post">
-            <div class="container">
+            <div>
                 <h1>Login</h1>
                 <div>
                     <input type="text" placeholder="Username" name="uname" required>
@@ -19,7 +20,7 @@
             </div>
         </form>
         <a href="{{ url_for('simple_pages.register') }}">
-            <button>Register</button>
+            <p>Register</p>
         </a>
         <!-- Flash messages for login feedback -->
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -32,4 +33,5 @@
             {% endif %}
         {% endwith %}
     </div>
+</div>
 {% endblock %}

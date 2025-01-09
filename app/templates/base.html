@@ -10,16 +10,20 @@
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
 </head>
-<body>
+<body class="main">
     <!-- Navbar for every Page -->
+    {% if show_navbar %}
     <div class="topnav">
         <a href="{{ url_for('simple_pages.calendar') }}">Calendar</a>
         <a href="{{ url_for('simple_pages.account') }}">Account</a>
     </div>
+    {% endif %}
+    <div class="content">
     {% block body %}{% endblock %}
     <!-- 
     NAVBAR 
     Error messages
     -->
+    </div>
 </body>
 </html>

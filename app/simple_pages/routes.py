@@ -8,7 +8,7 @@ from datetime import datetime
 blueprint = Blueprint('simple_pages', __name__)
 
 
-# --- Account Management 
+# ---------- Account Management ----------
 @blueprint.route('/')
 def index():
   return redirect(url_for("simple_pages.login"))
@@ -16,26 +16,28 @@ def index():
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        # Get form data
         username = request.form['uname']
         password = request.form['pword']
 
-        # Check if the username already exists
+        # Check username already exists
         existing_user = User.query.filter_by(uname=username).first()
         if existing_user:
-            flash('Username already exists. Please choose a different one.', 'danger')
+            flash('Username already exists. Please choose a different one.')
             return redirect(url_for('simple_pages.register'))
 
-        # Create a new user
+        # Create new user
         new_user = User(uname=username, pword=password)
 
-        # Add the new user to the database
+        # Add to DB
         db.session.add(new_user)
         db.session.commit()
 
-        flash('User created successfully!', 'success')
+        # redirect -> login
+        flash('User created successfully!')
         return redirect(url_for('simple_pages.login'))
 
-    return render_template('register.html')
+    return render_template('register.html', show_navbar=False)
 
 @blueprint.route("/login", methods=['GET', 'POST'])
 def login():
@@ -50,59 +52,67 @@ def login():
     # If password correct -> login
     if user and user.pword == password:
         login_user(user)
+
+        # redirect -> calendar
         flash('Logged in successfully.', 'success')
         return redirect(url_for('simple_pages.calendar'))
 
-    flash('Invalid username or password.', 'danger')
+    flash('Invalid username or password.')
 
-  return render_template("login.html")
+  return render_template("login.html", show_navbar=False)
 
 @blueprint.route("/logout")
 @login_required
 def logout():
-    # logout and redirect to login page
+    # logout and redirect -> login
     logout_user()
     flash('You have been logged out.', 'info')
+
     return redirect(url_for('simple_pages.login'))
 
 @blueprint.route("/account")
 @login_required
 def account():
-    # Fetch the current user
+    # get current user
     user = User.query.get(current_user.id)
 
-    # Fetch the number of entries for the current user
+    # count number of entries un db
     entry_count = Entries.query.filter_by(user_id=user.id).count()
 
-    return render_template("account.html", user=user, entry_count=entry_count)
+    return render_template("account.html", user=user, entry_count=entry_count, show_navbar=True)
 
 @blueprint.route("/account/edit", methods=['GET', 'POST'])
 @login_required
 def edit_account():
     if request.method == 'POST':
+        # get form data
         new_username = request.form['uname']
         new_password = request.form['pword']
 
-        # Check if the new username is already taken
+        # check if username exists
         if new_username != current_user.uname:
             existing_user = User.query.filter_by(uname=new_username).first()
             if existing_user:
+                
+                # refresh
                 flash('Username already exists. Please choose a different one.', 'danger')
                 return redirect(url_for('simple_pages.edit_account'))
 
         # Update user details
         current_user.uname = new_username
-        if new_password:  # Only change the password if a new one is provided
+        if new_password:  # Only change pword if its new
             current_user.pword = new_password
 
+        # sent to db and redirect -> account
         db.session.commit()
         flash('Account updated successfully!', 'success')
         return redirect(url_for('simple_pages.account'))
 
-    return render_template("edit_account.html", user=current_user)
+    return render_template("edit_account.html", user=current_user, show_navbar=True)
 
 
-# --- App Pages
+
+# ---------- App Pages ----------
 @blueprint.route("/calendar", methods=['GET', 'POST'])
 @login_required
 def calendar():
@@ -128,7 +138,7 @@ def calendar():
     except Exception as e:
       print(e)
 
-  return render_template("calendar.html", entries=all_entries)
+  return render_template("calendar.html", entries=all_entries, show_navbar=True)
 
 @blueprint.route("/entry/<int:entry_id>", methods=['GET', 'POST'])
 @login_required
@@ -136,7 +146,7 @@ def entry(entry_id):
 
   # Get Entries Table from DB
   entry = Entries.query.get(entry_id)
-  return render_template("entry.html", entry=entry)
+  return render_template("entry.html", entry=entry, show_navbar=True)
 
 @blueprint.route("/entry/<int:entry_id>/edit", methods=['GET', 'POST'])
 @login_required
@@ -154,7 +164,7 @@ def edit_entry(entry_id):
       db.session.commit()
       return redirect(url_for('simple_pages.entry', entry_id=entry.id))
 
-  return render_template("edit_entry.html", entry=entry)
+  return render_template("edit_entry.html", entry=entry, show_navbar=True)
 
 @blueprint.route("/new_entry", methods=['GET', 'POST'])
 @login_required
@@ -178,4 +188,4 @@ def new_entry():
 
     # Get the current date in DB format
     current_date = datetime.now().strftime('%Y-%m-%d')
-    return render_template("new_entry.html", current_date=current_date)
+    return render_template("new_entry.html", current_date=current_date, show_navbar=True)
