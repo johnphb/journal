@@ -4,8 +4,14 @@ from .models import User, Entries
 from app.extensions.database import db
 from datetime import datetime
 
+from app.scripts.seed import seed_database
+
 
 blueprint = Blueprint('simple_pages', __name__)
+
+@blueprint.route('/run-seed')
+def run_seed():
+    return seed_database()
 
 
 # ---------- Account Management ----------
