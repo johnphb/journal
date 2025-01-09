@@ -46,6 +46,8 @@ def create_app():
     register_extensions(app)
     register_blueprints(app)
 
+    log_database_info(app)
+
     return app
 
 def register_blueprints(app: Flask):
