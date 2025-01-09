@@ -4,8 +4,8 @@ from datetime import datetime, timezone
 
 def seed_database():
     # Check if the database is already seeded
-    if User.query.filter_by(uname='john3').first():
-        return 'Database is already seeded.'
+    # if User.query.filter_by(uname='john3').first():
+    #     return 'Database is already seeded.'
 
     # Create a new user
     new_user = User(uname='user', pword='password', created_at=datetime.now(timezone.utc))
