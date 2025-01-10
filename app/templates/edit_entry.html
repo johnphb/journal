@@ -39,12 +39,17 @@
             });
         </script>
 
-        <div class="align_right">
-            <a  href="{{ url_for('simple_pages.entry', entry_id=entry.id) }}">Cancel</a>
+        <div class="entry_page_head">
+            
+            <a class="red_text" href="{{ url_for('simple_pages.entry', entry_id=entry.id) }}">Cancel</a>
             <button class="button_small" type="submit">Save Changes</button>
             
         </div>
     </form>
+   
 </div>
+<form action="{{ url_for('simple_pages.delete_entry', entry_id=entry.id) }}" method="post" style="display: inline;">
+    <button type="submit" class="button_small">Delete Entry</button>
+</form>
 
 {% endblock %}

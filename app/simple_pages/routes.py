@@ -116,7 +116,19 @@ def edit_account():
 
     return render_template("edit_account.html", user=current_user, show_navbar=True)
 
+@blueprint.route("/account/delete", methods=['POST'])
+@login_required
+def delete_account():
+   # Get the current user from DB
+    user = User.query.get_or_404(current_user.id)
 
+    # Delete user in DB
+    db.session.delete(user)
+    db.session.commit()
+
+    # Log out and redirect -> login
+    logout_user()
+    return redirect(url_for('simple_pages.login'))
 
 # ---------- App Pages ----------
 @blueprint.route("/calendar", methods=['GET', 'POST'])
@@ -171,6 +183,20 @@ def edit_entry(entry_id):
       return redirect(url_for('simple_pages.entry', entry_id=entry.id))
 
   return render_template("edit_entry.html", entry=entry, show_navbar=True)
+
+@blueprint.route("/entry/<int:entry_id>/delete", methods=['POST'])
+@login_required
+def delete_entry(entry_id):
+    # Get entry from DB
+    entry = Entries.query.get_or_404(entry_id)
+
+    print("hello")
+    # Delete in DB
+    db.session.delete(entry)
+    db.session.commit()
+
+    # Redirect -> calendar
+    return redirect(url_for('simple_pages.calendar'))
 
 @blueprint.route("/new_entry", methods=['GET', 'POST'])
 @login_required

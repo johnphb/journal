@@ -27,4 +27,7 @@
         {% endif %}
     {% endwith %}
 </div>
+<form action="{{ url_for('simple_pages.delete_account') }}" method="post" style="display: inline;">
+    <button type="submit" class="button_small">Delete Account</button>
+</form>
 {% endblock %}
