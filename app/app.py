@@ -23,6 +23,8 @@ def create_app():
 
     app.config.from_object('app.config.Config') # load Config Variables
 
+    #print("Database URL:", app.config['SQLALCHEMY_DATABASE_URI'])
+
     register_extensions(app)
     register_blueprints(app)
 
