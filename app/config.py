@@ -1,10 +1,11 @@
 from dotenv import load_dotenv
-from os import environ
 import os
 
+# Load vars from .env file
 load_dotenv()
 
-SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL')
+# DB configuration
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 class Config:
     # Configuration Variables:

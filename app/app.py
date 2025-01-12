@@ -2,52 +2,45 @@ from flask import Flask
 from flask_login import LoginManager
 from dotenv import load_dotenv
 from . import simple_pages
-from app.extensions.database import db #, migrate
+from app.extensions.database import db
+from app.simple_pages.models import User
 
-# Some Commands to Remember:
-# % flask db init
-# % flask db migrate
-# % flask db upgrade
-# % sqlite3 ./instance/database.db
-# % git add .
-# % git commit -m ""
-
-from app.simple_pages.models import User, Entries
-from sqlalchemy import inspect
-
-load_dotenv() # Load .env variables
+# Load .env variables
+load_dotenv() 
 
 def create_app():
+    # Create Flask app instance
     app = Flask(__name__)
-    app.config.from_object('app.config')
+    
+    # Load configuration the config module
+    app.config.from_object('app.config.Config')
 
-    app.config.from_object('app.config.Config') # load Config Variables
-
-    #print("Database URL:", app.config['SQLALCHEMY_DATABASE_URI'])
-
+    # Register extensions and blueprints
     register_extensions(app)
     register_blueprints(app)
 
+    # Create DB tables if dont exist
     with app.app_context():
         db.create_all()
 
     return app
 
 def register_blueprints(app: Flask):
+    # Register blueprints 
     app.register_blueprint(simple_pages.routes.blueprint)
 
 def register_extensions(app: Flask):
-    db.init_app(app)
-    #migrate.init_app(app, db, compare_type=True)
+    ## Initialize extensions
 
-    # Initialize Flask-Login
+    # Initialize the SQLAlchemy DB
+    db.init_app(app)
+
+    # Initialize Flask-Login 
     login_manager = LoginManager()
-    login_manager.login_view = "simple_pages.login"  # Tells Flask-login where users login
+    login_manager.login_view = "simple_pages.login"  # Redirect if not logged in to login page
     login_manager.init_app(app)
 
-    # User loader callback
-    from app.simple_pages.models import User  # Import User model
+    # Load a user from the database by their user ID.
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
-

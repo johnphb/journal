@@ -1,22 +1,17 @@
-from flask import Blueprint, render_template, redirect, url_for, send_file, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import User, Entries
 from app.extensions.database import db
 from datetime import datetime
 
-from app.scripts.seed import seed_database
-
-
+# Create a blueprint for simple pages
 blueprint = Blueprint('simple_pages', __name__)
 
-@blueprint.route('/run-seed')
-def run_seed():
-    return seed_database()
-
-
 # ---------- Account Management ----------
+
 @blueprint.route('/')
 def index():
+  # redirect -> login page
   return redirect(url_for("simple_pages.login"))
 
 @blueprint.route('/register', methods=['GET', 'POST'])
@@ -32,15 +27,12 @@ def register():
             flash('Username already exists. Please choose a different one.')
             return redirect(url_for('simple_pages.register'))
 
-        # Create new user
+        # Create new user and add to DB
         new_user = User(uname=username, pword=password)
-
-        # Add to DB
         db.session.add(new_user)
         db.session.commit()
 
         # redirect -> login
-        flash('User created successfully!')
         return redirect(url_for('simple_pages.login'))
 
     return render_template('register.html', show_navbar=False)
@@ -55,12 +47,11 @@ def login():
     # Get User with that username from DB
     user = User.query.filter_by(uname=username).first()
 
-    # If password correct -> login
+    # If password correct, login
     if user and user.pword == password:
         login_user(user)
 
         # redirect -> calendar
-        flash('Logged in successfully.', 'success')
         return redirect(url_for('simple_pages.calendar'))
 
     flash('Invalid username or password.')
@@ -72,17 +63,13 @@ def login():
 def logout():
     # logout and redirect -> login
     logout_user()
-    flash('You have been logged out.', 'info')
-
     return redirect(url_for('simple_pages.login'))
 
 @blueprint.route("/account")
 @login_required
 def account():
-    # get current user
+    # get current user and count number of entries
     user = User.query.get(current_user.id)
-
-    # count number of entries un db
     entry_count = Entries.query.filter_by(user_id=user.id).count()
 
     return render_template("account.html", user=user, entry_count=entry_count, show_navbar=True)
@@ -109,7 +96,7 @@ def edit_account():
         if new_password:  # Only change pword if its new
             current_user.pword = new_password
 
-        # sent to db and redirect -> account
+        # commit to db and redirect -> account
         db.session.commit()
         flash('Account updated successfully!', 'success')
         return redirect(url_for('simple_pages.account'))
@@ -139,22 +126,6 @@ def calendar():
 
   # Get Entries Table from DB  - Only for User          - Sorted by Date (latest first)
   all_entries = Entries.query.filter_by(user_id=user_id).order_by(Entries.date.desc()).all()
-
-  # Sending to DB
-  if request.method == "POST":
-    data = request.get_json() # Get json file from postman
-
-    new_entry = Entries( 
-      user_id=data["user_id"],
-      date=datetime.strptime(data["date"], '%d.%m.%Y').date(), # Formating to py datetime object
-      title=data["title"],
-      content=data["content"]
-    )
-    try: # Sending to DB
-      db.session.add(new_entry) 
-      db.session.commit()
-    except Exception as e:
-      print(e)
 
   return render_template("calendar.html", entries=all_entries, show_navbar=True)
 
