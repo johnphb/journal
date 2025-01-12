@@ -2,7 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from dotenv import load_dotenv
 from . import simple_pages
-from app.extensions.database import db, migrate
+from app.extensions.database import db #, migrate
 
 # Some Commands to Remember:
 # % flask db init
@@ -35,7 +35,7 @@ def register_blueprints(app: Flask):
 
 def register_extensions(app: Flask):
     db.init_app(app)
-    migrate.init_app(app, db, compare_type=True)
+    #migrate.init_app(app, db, compare_type=True)
 
     # Initialize Flask-Login
     login_manager = LoginManager()
